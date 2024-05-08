@@ -9,6 +9,7 @@ Antes de começar, você precisa ter o Docker e o Docker Compose instalados em s
 
 - [Instalar Docker](https://docs.docker.com/get-docker/)
 - [Instalar Docker Compose](https://docs.docker.com/compose/install/)
+- [Instalar OpenSSL](https://www.openssl.org/)
 
 ## Configuração
 
@@ -39,6 +40,64 @@ Antes de começar, você precisa ter o Docker e o Docker Compose instalados em s
    Após iniciar os serviços, o Kibana estará disponível em `http://localhost:5601`. Abra seu navegador e acesse essa URL para começar a usar o Kibana.
 
 ## Gerenciamento
+
+#### Certificados SSL
+
+Para gerar certificados SSL (.crt) e chaves privadas (.key) você pode usar ferramentas como OpenSSL, que é amplamente utilizada para criar certificados autoassinados e chaves.
+
+Aqui está um guia passo a passo para gerar um certificado e uma chave usando OpenSSL:
+
+#### Passo 1: Instalar o OpenSSL
+
+###### Debian/Ubuntu
+
+`sudo apt-get install openssl`
+
+###### RedHat/Fedora
+
+`sudo yum install openssl`
+
+###### macOS (geralmente já vem instalado)
+
+`brew install  openssl`
+
+#### Passo 2: Gerar a Chave Privada
+
+Gere uma chave privada RSA de 2048 bits
+
+`openssl genrsa -out key.key 2048`
+
+Este comando gera uma chave privada RSA e salva no arquivo `elasticsearch.key`.
+
+Nome "elasticsearch" é apenas sugestivo.
+
+#### Passo 3: Gerar a Solicitação de Assinatura de Certificado (CSR)
+
+Com a chave privada, crie uma CSR (Certificate Signing Request).
+
+Durante a criação da CSR, você será solicitado a inserir informações que serão incorporadas ao seu certificado:
+
+`openssl req -new -key key.key -out elasticsearch.csr`
+
+Você precisa fornecer detalhes como país, estado, localidade, nome da organização, nome comum (o nome de domínio do certificado) e email. Preencha conforme necessário para seu caso de uso.
+
+Novamente, o nome "elasticsearch" é apenas sugestivo.
+
+#### Passo 4: Gerar o Certificado Autoassinado
+
+Usando a CSR e a chave privada, gere o certificado autoassinado:
+
+`openssl x509 -req -days 365 -in elasticsearch.csr -signkey elasticsearch.key -out elasticsearch.crt`
+
+Este comando cria um certificado (elasticsearch.crt) que é válido por 365 dias.
+
+Novamente, tanto o nome e o número de dias pode ser ajustado conforme necessário.
+
+#### Passo 5: Verificar o Certificado
+
+`openssl x509 -in elasticsearch.crt -text -noout`
+
+Este comando exibe as informações do certificado, incluindo a validade, a quem foi emitido, o emissor, etc.
 
 ### Visualizar Logs
 
