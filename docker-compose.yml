@@ -46,8 +46,23 @@ services:
     networks:
       - elastic
 
+  filebeat:
+    image: docker.elastic.co/beats/filebeat:8.5.0
+    container_name: filebeat
+    depends_on:
+      - elasticsearch
+      - rabbitmq
+    volumes:
+      - ./filebeat.yml:/usr/share/filebeat/filebeat.yml
+      - rabbitmq_logs:/var/log/rabbitmq:ro
+    networks:
+      - elastic
+    command: ["filebeat", "-e", "-strict.perms=false"]
+
 volumes:
   esdata1:
+    driver: local
+  rabbitmq_logs:
     driver: local
 
 networks:
