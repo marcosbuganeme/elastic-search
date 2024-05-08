@@ -35,11 +35,17 @@ Antes de começar, você precisa ter o Docker e o Docker Compose instalados em s
    docker-compose up -d
    ```
 
-4. **Acessando o Kibana**
+4. **Acessando o Elastic Search**
+
+   Após iniciar os serviços, o Elastic Search estará disponível em `http://localhost:9200`.
+
+   Um usuário e senha serão solicitados, dentro do script docker-compose foi estabelecido uma senha padrão `YourStrongElasticPassword`.
+
+   Sobre o usuário, é criado um padrão automático direto na imagem, utiliza-se o usuário `elastic`.
+
+5. **Acessando o Kibana**
 
    Após iniciar os serviços, o Kibana estará disponível em `http://localhost:5601`. Abra seu navegador e acesse essa URL para começar a usar o Kibana.
-
-## Gerenciamento
 
 #### Certificados SSL
 
@@ -98,6 +104,8 @@ Novamente, tanto o nome e o número de dias pode ser ajustado conforme necessár
 `openssl x509 -in elasticsearch.crt -text -noout`
 
 Este comando exibe as informações do certificado, incluindo a validade, a quem foi emitido, o emissor, etc.
+
+## Gerenciamento
 
 ### Visualizar Logs
 
