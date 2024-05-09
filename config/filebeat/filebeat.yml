@@ -1,10 +1,26 @@
 filebeat.inputs:
-- type: log
-  enabled: true
+- type: filestream
+  id: default-filestream
   paths:
-    - /var/log/rabbitmq/*.log
+    - ingest_data/*.log
+
+filebeat.autodiscover:
+  providers:
+    - type: docker
+      hints.enabled: true
+
+processors:
+- add_docker_metadata: ~
+
+setup.kibana:
+  host: ${KIBANA_HOSTS}
+  username: ${ELASTIC_USER}
+  password: ${ELASTIC_PASSWORD}
 
 output.elasticsearch:
-  hosts: ["elasticsearch:9200"]
-  username: "elastic"
-  password: "YourStrongElasticPassword"
+  hosts: ${ELASTIC_HOSTS}
+  username: ${ELASTIC_USER}
+  password: ${ELASTIC_PASSWORD}
+  ssl:
+    enabled: true
+    certificate_authorities: ${CA_CERT}
