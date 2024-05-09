@@ -149,8 +149,6 @@ services:
     environment:
       - RABBITMQ_DEFAULT_USER=user
       - RABBITMQ_DEFAULT_PASS=password
-    networks:
-      - elastic
 
   filebeat:
     image: docker.elastic.co/beats/filebeat:8.13.0
