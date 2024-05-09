@@ -1,0 +1,17 @@
+# Credenciais do Elasticsearch
+elasticsearch.apiKey: "aktUVo8B1zQqNpwcJus8:M_cj_r36SiKCqmNvZxEbcg"
+
+# Credenciais do Elasticsearch via Service Account Token
+elasticsearch.serviceAccountToken: "your_service_account_token_here"
+
+# Host e Porta do Servidor Kibana
+server.host: "localhost"
+server.port: 5601
+
+# Configurações de Timeout
+elasticsearch.requestTimeout: 300000
+
+# Configurações adicionais de desempenho e logging
+logging:
+  root:
+    level: debug
