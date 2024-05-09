@@ -51,8 +51,6 @@ services:
       - ./certificates/elasticsearch.key:/usr/share/elasticsearch/config/certs/http.key
       - ./certificates/elasticsearch.crt:/usr/share/elasticsearch/config/certs/http.crt
       - ./certificates/elasticsearch.crt:/usr/share/elasticsearch/config/certs/ca.crt
-    networks:
-      - elastic
 
   kibana:
     image: docker.elastic.co/kibana/kibana:8.13.0
