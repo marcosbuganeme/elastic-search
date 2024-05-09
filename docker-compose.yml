@@ -46,11 +46,6 @@ services:
       memlock:
         soft: -1
         hard: -1
-    volumes:
-      - esdata01:/usr/share/elasticsearch/data
-      - ./certificates/elasticsearch.key:/usr/share/elasticsearch/config/certs/http.key
-      - ./certificates/elasticsearch.crt:/usr/share/elasticsearch/config/certs/http.crt
-      - ./certificates/elasticsearch.crt:/usr/share/elasticsearch/config/certs/ca.crt
 
   kibana:
     image: docker.elastic.co/kibana/kibana:8.13.0
